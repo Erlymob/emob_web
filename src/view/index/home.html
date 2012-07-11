@@ -1,0 +1,72 @@
+{% extends "layout/application.html" %}
+
+{% block title %}Home &laquo; {% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="span3">
+		<h2>User Stuff</h2>
+		<ul class="nav nav-list">
+			<li class="nav-header">
+				This Section Right Here
+			</li>
+			<li>
+				<textarea>will have box where the user can compose a new event</textarea>
+			</li>
+			<li class="nav-header">
+				User
+			</li>
+			<li>
+				<strong>ID</strong> // {{ user_id }}
+			</li>
+			<li>
+				<strong>Name</strong> // {{ screen_name }}
+			</li>
+			<li class="nav-header">
+				Session
+			</li>
+			<li>
+				<strong>ID</strong> // {{ session_id|truncatechars:16 }}
+			</li>
+			<li>
+				<strong>Token</strong> // {{ access_token|truncatechars:16 }}
+			</li>
+		</ul>
+	</div>
+	<div class="span9">
+		<h2>Mobs</h2>
+
+		<div id="mobs"></div>
+
+		<script> /* {# this is a terrible hack, but i've only got 2hrs left, so f*ck it, we're doin' it live #} */
+			var mobs = {{ mobs_json }};
+
+			$.each(mobs, function() {
+				var mob = this;
+				
+				if (mob.user != "erlymob_test" && mob.user != null) {
+						var div = $('<div>', {
+						id: mob.id,
+						'class': "mob"
+					});
+
+					var date = new Date((mob.created) * 1000);
+
+					var html = '<h3>"'+mob.tweet.replace(/@erlymob_test\s*/, '')+'"</h3>'
+						+'<h4><a class="text" href="https://twitter.com/#!/search/%23mob'+mob.id+'" target="_blank">#mob'+mob.id+'</a></h4>'
+						+'<h6>Posted by <a class="text" href="http://twitter.com/'+mob.user+'" target="_blank">@'+mob.user+'</a> '
+						+'on '+date.toUTCString()+'</h6>';
+
+					$('<p>', {
+						html: html
+					}).appendTo(div);
+
+					div.appendTo($('#mobs'));
+				}
+			});
+		</script>
+	</div>
+</div>
+
+{% endblock %}
