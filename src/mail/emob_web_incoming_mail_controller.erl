@@ -1,4 +1,4 @@
--module(emob_ui_incoming_mail_controller).
+-module(emob_web_incoming_mail_controller).
 -compile(export_all).
 
 authorize_(User, DomainName, IPAddress) ->

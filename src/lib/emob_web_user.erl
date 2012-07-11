@@ -1,4 +1,4 @@
--module(emob_ui_user).
+-module(emob_web_user).
 -export([check_auth/1]).
 
 check_auth(SessionID) ->

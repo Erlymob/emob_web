@@ -2,9 +2,9 @@
 -export([get_request_token/0, get_access_token/2, get_mobs/1]).
 
 get_request_token() ->
-	{ok, ApiUrl} = application:get_env(emob_ui, api_root),
+	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	TargetUrl = lists:flatten(io_lib:format("~s/get_request_token", [ApiUrl])),
-	{ok, CBUrl} = application:get_env(emob_ui, local_root),
+	{ok, CBUrl} = application:get_env(emob_web, local_root),
 	GetData = lists:flatten(io_lib:format("callback_url=~s/post_login", [CBUrl])),
 	io:format("TargetUrl: ~p; GetData: ~p~n", [TargetUrl, GetData]),
 	case ibrowse:send_req(TargetUrl, [{"Accept", "application/json"}], get, [GetData], [{response_format, binary}]) of
@@ -26,7 +26,7 @@ get_request_token() ->
 	end.
 
 get_access_token(OAuthToken, OAuthVerifier) ->
-	{ok, ApiUrl} = application:get_env(emob_ui, api_root),
+	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	TargetUrl = lists:flatten(io_lib:format("~s/get_access_token?oauth_token=~s&oauth_verifier=~s", [ApiUrl, OAuthToken, OAuthVerifier])),
 	case ibrowse:send_req(TargetUrl, [{"Accept", "application/json"}], get, [], [{response_format, binary}]) of
 		{ok, Code, Headers, Body} ->
@@ -48,7 +48,7 @@ get_access_token(OAuthToken, OAuthVerifier) ->
 
 get_mobs(AccessToken) ->
 	{access_token, Token} = AccessToken,
-	{ok, ApiUrl} = application:get_env(emob_ui, api_root),
+	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	TargetUrl = lists:flatten(io_lib:format("~s/mobs?token=~s", [ApiUrl, Token])),
 	%TargetUrl = lists:flatten(io_lib:format("~s/mobs", [ApiUrl])),
 	case ibrowse:send_req(TargetUrl, [{"Accept", "application/json"}], get, [], [{response_format, binary}]) of

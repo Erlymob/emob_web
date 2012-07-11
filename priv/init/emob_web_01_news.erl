@@ -1,4 +1,4 @@
--module(emob_ui_01_news).
+-module(emob_web_01_news).
 
 -export([init/0, stop/1]).
 

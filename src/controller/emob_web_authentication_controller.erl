@@ -1,4 +1,4 @@
--module(emob_ui_authentication_controller, [Req, SessionID]).
+-module(emob_web_authentication_controller, [Req, SessionID]).
 -export([login/2, post_login/2, logout/2]).
 
 login('GET', []) ->

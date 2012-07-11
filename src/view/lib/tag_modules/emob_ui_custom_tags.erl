@@ -1,4 +1,4 @@
--module(emob_ui_custom_tags).
+-module(emob_web_custom_tags).
 -compile(export_all).
 
 % put custom tags in here, e.g.

@@ -1,4 +1,4 @@
--module(emob_ui_custom_filters).
+-module(emob_web_custom_filters).
 -compile(export_all).
 
 % put custom filters in here, e.g.

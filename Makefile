@@ -1,4 +1,4 @@
-APPLICATION := emob_ui
+APPLICATION := emob_web
 
 ERL := erl
 EPATH := -pa ebin -pz deps/*/ebin

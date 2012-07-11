@@ -1,8 +1,8 @@
--module(emob_ui_index_controller, [Req, SessionID]).
+-module(emob_web_index_controller, [Req, SessionID]).
 -export([before_/1, landing_page/3, home/3]).
 
 before_(_) ->
-	emob_ui_user:check_auth(SessionID).
+	emob_web_user:check_auth(SessionID).
 
 landing_page('GET', [], true) ->
 	{redirect, [{action, "home"}]};
@@ -17,7 +17,7 @@ home('GET', [], true) ->
 	AccessTokenSecret = boss_session:get_session_data(SessionID, access_token_secret),
 	UserId = boss_session:get_session_data(SessionID, user_id),
 	ScreenName = boss_session:get_session_data(SessionID, screen_name),
-	{ok, ApiUrl} = application:get_env(emob_ui, api_root),
+	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	MobsUrl = lists:flatten(io_lib:format("~s/mobs", [ApiUrl])),
 
 	Json = emob_transport:get_mobs({access_token, AccessToken}),
