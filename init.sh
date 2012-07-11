@@ -15,20 +15,20 @@ case "${1:-''}" in
   'start')
         # Start Boss in production mode
         echo "starting boss in production mode..."
-        START=$(./rebar boss c=start_cmd|grep -v "==>")
+        START=$(rebar boss c=start_cmd|grep -v "==>")
         $START
         ;;
         
   'start-dev')
         # Start Boss in development mode
-        START_DEV=$(./rebar boss c=start_dev_cmd|grep -v "==>")
+        START_DEV=$(rebar boss c=start_dev_cmd|grep -v "==>")
         $START_DEV
         ;;
 
   'stop')
         # Stop Boss daemon
         echo "stopping boss..."
-        STOP=$(./rebar boss c=stop_cmd|grep -v "==>")
+        STOP=$(rebar boss c=stop_cmd|grep -v "==>")
         # After hours of shell quoting problems with the erl command,
         # eval with the command quoted works!!!
         eval "$STOP"
@@ -37,7 +37,7 @@ case "${1:-''}" in
   'reload')
         # Boss hot code reload <-- only the actual node, not the entire cluster
         echo "Hot code reload, (WARN: Only this node)"
-        RELOAD=$(./rebar boss c=reload_cmd|grep -v "==>")
+        RELOAD=$(rebar boss c=reload_cmd|grep -v "==>")
         eval "$RELOAD"
         ;;
 
