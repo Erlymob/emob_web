@@ -20,7 +20,7 @@ home('GET', [], true) ->
 	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	MobsUrl = lists:flatten(io_lib:format("~s/mobs", [ApiUrl])),
 
-	Json = emob_transport:get_mobs({access_token, AccessToken}),
+	Json = emob_transport:get_mobs(AccessToken),
 
 	{ok,[
 		{logged_in, true},

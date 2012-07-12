@@ -15,9 +15,8 @@ get_access_token(OAuthToken, OAuthVerifier) ->
 	do_get(TargetUrl, [], true).
 
 get_mobs(AccessToken) ->
-	{access_token, Token} = AccessToken,
 	{ok, ApiUrl} = application:get_env(emob_web, api_root),
-	TargetUrl = lists:flatten(io_lib:format("~s/mobs?token=~s", [ApiUrl, Token])),
+	TargetUrl = lists:flatten(io_lib:format("~s/mobs?token=~s", [ApiUrl, AccessToken])),
 	do_get(TargetUrl, [], false).
 
 do_get(Url, RequestBody, ParseJson) ->
