@@ -7,57 +7,32 @@ get_request_token() ->
 	{ok, CBUrl} = application:get_env(emob_web, local_root),
 	GetData = lists:flatten(io_lib:format("callback_url=~s/post_login", [CBUrl])),
 	io:format("TargetUrl: ~p; GetData: ~p~n", [TargetUrl, GetData]),
-	case ibrowse:send_req(TargetUrl, [{"Accept", "application/json"}], get, [GetData], [{response_format, binary}]) of
-		{ok, Code, Headers, Body} ->
-			try
-				case Code of
-					"2" ++ _Tail ->
-						ejson:decode(Body);
-					_  ->
-						{error, Code}
-				end
-			catch
-				throw:Reason ->
-					{error, Reason}
-			end;
-
-		{error, _Reason} = Error ->
-			Error
-	end.
+	do_get(TargetUrl, GetData, true).
 
 get_access_token(OAuthToken, OAuthVerifier) ->
 	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	TargetUrl = lists:flatten(io_lib:format("~s/get_access_token?oauth_token=~s&oauth_verifier=~s", [ApiUrl, OAuthToken, OAuthVerifier])),
-	case ibrowse:send_req(TargetUrl, [{"Accept", "application/json"}], get, [], [{response_format, binary}]) of
-		{ok, Code, Headers, Body} ->
-			try
-				case Code of
-					"2" ++ _Tail ->
-						ejson:decode(Body);
-					_  ->
-						{error, Code}
-				end
-			catch
-				throw:Reason ->
-					{error, Reason}
-			end;
-
-		{error, _Reason} = Error ->
-			Error
-	end.
+	do_get(TargetUrl, [], true).
 
 get_mobs(AccessToken) ->
 	{access_token, Token} = AccessToken,
 	{ok, ApiUrl} = application:get_env(emob_web, api_root),
 	TargetUrl = lists:flatten(io_lib:format("~s/mobs?token=~s", [ApiUrl, Token])),
-	%TargetUrl = lists:flatten(io_lib:format("~s/mobs", [ApiUrl])),
-	case ibrowse:send_req(TargetUrl, [{"Accept", "application/json"}], get, [], [{response_format, binary}]) of
+	do_get(TargetUrl, [], false).
+
+do_get(Url, Body, ParseJson) ->
+	case ibrowse:send_req(Url, [{"Accept", "application/json"}], get, Body, [{response_format, binary}]) of
 		{ok, Code, Headers, Body} ->
 			try
 				case Code of
 					"2" ++ _Tail ->
-						Body;
-					_  ->
+						case ParseJson of
+							true ->
+								ejson:decode(Body);
+							_ ->
+								Body
+						end;
+					_ ->
 						{error, Code}
 				end
 			catch
@@ -68,3 +43,4 @@ get_mobs(AccessToken) ->
 		{error, _Reason} = Error ->
 			Error
 	end.
+
