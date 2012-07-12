@@ -20,17 +20,17 @@ get_mobs(AccessToken) ->
 	TargetUrl = lists:flatten(io_lib:format("~s/mobs?token=~s", [ApiUrl, Token])),
 	do_get(TargetUrl, [], false).
 
-do_get(Url, Body, ParseJson) ->
-	case ibrowse:send_req(Url, [{"Accept", "application/json"}], get, Body, [{response_format, binary}]) of
-		{ok, Code, Headers, Body} ->
+do_get(Url, RequestBody, ParseJson) ->
+	case ibrowse:send_req(Url, [{"Accept", "application/json"}], get, RequestBody, [{response_format, binary}]) of
+		{ok, Code, Headers, ResponseBody} ->
 			try
 				case Code of
 					"2" ++ _Tail ->
 						case ParseJson of
 							true ->
-								ejson:decode(Body);
+								ejson:decode(ResponseBody);
 							_ ->
-								Body
+								ResponseBody
 						end;
 					_ ->
 						{error, Code}
