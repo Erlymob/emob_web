@@ -1,0 +1,2 @@
+class MobController < ApplicationController
+end

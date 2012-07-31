@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title><%= @title ? raw(@title + " &laquo; ") : nil %>Erlymob</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Mahesh Paolini-Subramanya, Juan Jose Comellas, Tom Heinan">
+
+		<!-- css -->
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="/static/css/erlymob.css">
+
+		<!-- js -->
+		<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+		<!-- icons -->
+		<link rel="shortcut icon" href="/static/images/icons/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/icons/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/icons/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/icons/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="/static/images/icons/apple-touch-icon-57-precomposed.png">
+
+	</head>
+
+	<body>
+
+		<!-- navbar -->
+		<nav class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a href="/" class="brand"><img src="/static/images/logo.png" alt="Erlymob"></a>
+					<div class="nav-collapse">
+			  
+						<ul class="nav actions">
+							<% if session[:access_token] %>
+								<li><a href="<%= logout_path %>">Log out</a></li>
+							<% else %>
+								<li><a href="<%= login_path %>"><img src="/static/images/buttons/sign-in-with-twitter.png" alt="Sign in with Twitter"></a></li>
+							<% end %>
+						</ul>
+				
+						<ul class="nav">
+							<li><a href="<%= about_path %>">About Erlymob</a></li>
+							<li><a href="<%= team_path %>">The Team</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</nav>
+
+		<div class="spacer visible-desktop"></div>
+
+		<div class="container">
+			<%= yield %>
+
+			<hr>
+
+			<footer>
+				<p>Copyright &copy; <%= Time.now.year %> <a  class="text" href="<%= team_path %>">Team Erlymob</a></p>
+			</footer>
+		</div>
+
+	</body>
+</html>
