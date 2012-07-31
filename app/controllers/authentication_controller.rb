@@ -15,6 +15,7 @@ class AuthenticationController < ApplicationController
 		session[:access_token_secret] = response["result"]["secret"]
 		session[:user_id] = response["result"]["user_id"]
 		session[:screen_name] = response["result"]["screen_name"]
+		session[:api_url] = Erlymob::Application.config.api_url
 
 		redirect_to home_path
 	end

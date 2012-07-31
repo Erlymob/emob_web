@@ -1,5 +1,9 @@
+<% content_for :js do %>
+	<script type="text/javascript" src="/static/js/home.js"></script>
+<% end %>
+
 <div class="row">
-	<div class="span3">
+	<div class="span4">
 		<h2>User Stuff</h2>
 		<ul class="nav nav-list">
 			<li class="nav-header">
@@ -17,48 +21,24 @@
 			<li>
 				<strong>Name</strong> // <%= session[:screen_name] %>
 			</li>
-			<li class="nav-header">
-				Session
-			</li>
-			<li>
-				<strong>ID</strong> // <%= session[:id] %>
-			</li>
-			<li>
-				<strong>Token</strong> // <%= session[:access_token] %>
-			</li>
 		</ul>
 	</div>
-	<div class="span9">
-		<h2>Mobs</h2>
-
-		<div id="mobs"></div>
-
-		<script> /* {# this is a terrible hack, but i've only got 2hrs left, so f*ck it, we're doin' it live #} */
-			var mobs = [];
-
-			$.each(mobs, function() {
-				var mob = this;
-				
-				if (mob.user != "erlymob_test" && mob.user != null) {
-						var div = $('<div>', {
-						id: mob.id,
-						'class': "mob"
-					});
-
-					var date = new Date((mob.created) * 1000);
-
-					var html = '<h3>"'+mob.tweet.replace(/@erlymob_test\s*/, '')+'"</h3>'
-						+'<h4><a class="text" href="https://twitter.com/#!/search/%23mob'+mob.id+'" target="_blank">#mob'+mob.id+'</a></h4>'
-						+'<h6>Posted by <a class="text" href="http://twitter.com/'+mob.user+'" target="_blank">@'+mob.user+'</a> '
-						+'on '+date.toUTCString()+'</h6>';
-
-					$('<p>', {
-						html: html
-					}).appendTo(div);
-
-					div.appendTo($('#mobs'));
-				}
-			});
-		</script>
+	<div class="span8">
+		<div id="mobs">
+			<% @mobs.each do |mob| %>
+				<div class="mob" id="<%= mob["id"] %>">
+					<div class="map" data-latitude="<%= mob["where"]["latitude"] %>" data-longitude="<%= mob["where"]["longitude"] %>" data-focused="false"></div>
+					<p>
+						<h3><%= mob["tweet"].gsub(/\s*@erlymob_?\S*\s*/i, "") %></h3>
+						<h4><a class="text" href="https://twitter.com/#!/search/%23<%= mob["hashtag"] %>" target="_blank">#<%= mob["hashtag"] %></a></h4>
+						<h6>Posted by <a class="text" href="http://twitter.com/<%= mob["user"] %>" target="_blank">@<%= mob["user"] %></a> on <%= Time.at(mob["created"]).to_datetime.strftime("%d %b - %I:%M%p") %></h6>
+						<div class="options" >
+							<a href="#" class="like">0</a>
+							<a href="#" class="rsvp">0</a>
+						</div>
+					</p>
+				</div>
+			<% end %>
+		</div>
 	</div>
 </div>
