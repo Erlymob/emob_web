@@ -166,6 +166,26 @@ h5 {
 	background-size: cover;
 }
 
+.user_bar {
+	width: 100%;
+	background-color: #fff;
+	padding: 10px;
+	margin-bottom: 20px;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.user_bar img {
+	width: 64px;
+	height: 64px;
+	float: right;
+}
+
+.user_bar h2 {
+	line-height: 64px;
+}
+
 #mobs .mob {
 	width: 100%;
 	background-color: #fff;

@@ -4,24 +4,10 @@
 
 <div class="row">
 	<div class="span4">
-		<h2>User Stuff</h2>
-		<ul class="nav nav-list">
-			<li class="nav-header">
-				This Section Right Here
-			</li>
-			<li>
-				<textarea>will have box where the user can compose a new event</textarea>
-			</li>
-			<li class="nav-header">
-				User
-			</li>
-			<li>
-				<strong>ID</strong> // <%= session[:user_id] %>
-			</li>
-			<li>
-				<strong>Name</strong> // <%= session[:screen_name] %>
-			</li>
-		</ul>
+		<div class="user_bar">
+			<img src="<%= profile_image_path(:screen_name => session[:screen_name]) %>">
+			<h2><%= session[:screen_name] %></h2>
+		</div>
 	</div>
 	<div class="span8">
 		<div id="mobs">
