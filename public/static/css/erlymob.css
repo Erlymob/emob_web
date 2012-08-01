@@ -181,7 +181,23 @@ a.text:hover {
 	background: url(/static/images/icons/no_map.png) center no-repeat #ddd;
 }
 
+.profile {
+	width: 90px;
+	height: 90px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	background-position: center;
+	background-size: cover;
+}
+
+.clear {
+	width: 100%;
+	clear: both;
+}
+
 .options {
+	border-top: 1px solid #ddd;
 	text-align: center;
 }
 
@@ -205,4 +221,8 @@ a.like {
 
 a.rsvp {
 	background: url(/static/images/icons/rsvp.png) center left no-repeat transparent;
+}
+
+a.unrsvp {
+	background: url(/static/images/icons/unrsvp.png) center left no-repeat transparent;
 }

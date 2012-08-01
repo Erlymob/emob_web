@@ -20,6 +20,27 @@ $(document).ready(function() {
 		}
 	});
 
+	// intercept options links
+	$('a.rsvp').click(function(event) {
+		event.preventDefault();
+		$.get(this.href, function(data) {
+			console.log(data);
+		});
+	});
+
+	// create a place mark on mouseover
+	$('.map').hover(function(event) {
+		var position = $(this).gmap('get','map').getCenter();
+		console.log(position);
+		$(this).gmap('addMarker', {
+				'position': position
+		}, function(map, marker) {
+
+		});
+	}, function(event) {
+		$(this).gmap('clear', 'markers');
+	});
+
 	/*
 	$('.map').click(function() {
 		if ($(this).data("focused") == "false") {
