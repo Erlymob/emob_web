@@ -186,6 +186,11 @@ h5 {
 	line-height: 64px;
 }
 
+.user_controls textarea {
+	width: 103%;
+	height: 40px;
+}
+
 #mobs .mob {
 	width: 100%;
 	background-color: #fff;
