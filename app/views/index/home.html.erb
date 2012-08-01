@@ -29,7 +29,7 @@
 				<div class="mob" id="<%= mob["id"] %>">
 					<div class="map" data-latitude="<%= mob["where"]["latitude"] %>" data-longitude="<%= mob["where"]["longitude"] %>" data-focused="false"></div>
 					<p>
-						<div class="profile" style="background-image: url('https://api.twitter.com/1/users/profile_image?screen_name=<%= mob["user"] %>&size=original')"></div>
+						<div class="profile" style="background-image: url('<%= profile_image_path(:screen_name => mob["user"]) %>');"></div>
 						<h3><%= raw(mob["tweet"].tweet_to_html) %></h3>
 						<h4><a class="text" href="https://twitter.com/#!/search/%23<%= mob["hashtag"] %>" target="_blank">#<%= mob["hashtag"] %></a></h4>
 						<h5>Posted by <a class="text" href="http://twitter.com/<%= mob["user"] %>" target="_blank">@<%= mob["user"] %></a> on <%= Time.at(mob["created"]).to_datetime.strftime("%d %b - %I:%M%p") %></h5>

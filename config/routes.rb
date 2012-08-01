@@ -22,6 +22,8 @@ Erlymob::Application.routes.draw do
   match '/rsvp/:id' => 'mob#rsvp', :as => 'rsvp', :defaults => {:format => :json}
   match '/unrsvp/:id' => 'mob#unrsvp', :as => 'unrsvp', :defaults => {:format => :json}
 
+  match '/dynamic/images/profile/:screen_name' => 'index#profile_image', :as => 'profile_image'
+
   root :to => 'index#index', :as => 'home'
 
 end
