@@ -30,15 +30,18 @@ $(document).ready(function() {
 
 	// create a place mark on mouseover
 	$('.map').hover(function(event) {
-		var position = $(this).gmap('get','map').getCenter();
-		console.log(position);
-		$(this).gmap('addMarker', {
+		if ($(this).data('latitude')) {
+			var position = $(this).gmap('get','map').getCenter();
+			$(this).gmap('addMarker', {
 				'position': position
-		}, function(map, marker) {
+			}, function(map, marker) {
 
-		});
+			});
+		}
 	}, function(event) {
-		$(this).gmap('clear', 'markers');
+		if ($(this).data('latitude')) {
+			$(this).gmap('clear', 'markers');
+		}
 	});
 
 	/*
