@@ -219,6 +219,10 @@ a.like {
 	background: url(/static/images/icons/like.png) center left no-repeat transparent;
 }
 
+a.unlike {
+	background: url(/static/images/icons/unlike.png) center left no-repeat transparent;
+}
+
 a.rsvp {
 	background: url(/static/images/icons/rsvp.png) center left no-repeat transparent;
 }

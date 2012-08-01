@@ -21,10 +21,31 @@ $(document).ready(function() {
 	});
 
 	// intercept options links
-	$('a.rsvp').click(function(event) {
+	$('.options a').click(function(event) {
 		event.preventDefault();
+		var self = this
 		$.get(this.href, function(data) {
-			console.log(data);
+			if ($(self).hasClass('rsvp')) {
+				$(self).removeClass('rsvp');
+				$(self).addClass('unrsvp');
+				var oldVal = parseInt($(self).text());
+				$(self).text(oldVal + 1);
+			} else if ($(self).hasClass('unrsvp')) {
+				$(self).removeClass('unrsvp');
+				$(self).addClass('rsvp');
+				var oldVal = parseInt($(self).text());
+				$(self).text(oldVal - 1);
+			} else if ($(self).hasClass('like')) {
+				$(self).removeClass('like');
+				$(self).addClass('unlike');
+				var oldVal = parseInt($(self).text());
+				$(self).text(oldVal + 1);
+			} else if ($(self).hasClass('unlike')) {
+				$(self).removeClass('unlike');
+				$(self).addClass('like');
+				var oldVal = parseInt($(self).text());
+				$(self).text(oldVal - 1);
+			}
 		});
 	});
 
