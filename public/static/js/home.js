@@ -20,29 +20,45 @@ $(document).ready(function() {
 		}
 	});
 
-	// intercept options links
+	// intercept options links (this is hackish, improve at some point)
 	$('.options a').click(function(event) {
 		event.preventDefault();
 		var self = this
-		$.get(this.href, function(data) {
+		$.get($(this).attr('href'), function(data) {
 			if ($(self).hasClass('rsvp')) {
 				$(self).removeClass('rsvp');
 				$(self).addClass('unrsvp');
+
+				var href = $(self).attr('href');
+				$(self).attr('href', href.replace('rsvp', 'unrsvp'));
+
 				var oldVal = parseInt($(self).text());
 				$(self).text(oldVal + 1);
 			} else if ($(self).hasClass('unrsvp')) {
 				$(self).removeClass('unrsvp');
 				$(self).addClass('rsvp');
+
+				var href = $(self).attr('href');
+				$(self).attr('href', href.replace('unrsvp', 'rsvp'));
+
 				var oldVal = parseInt($(self).text());
 				$(self).text(oldVal - 1);
 			} else if ($(self).hasClass('like')) {
 				$(self).removeClass('like');
 				$(self).addClass('unlike');
+
+				var href = $(self).attr('href');
+				$(self).attr('href', href.replace('like', 'unlike'));
+
 				var oldVal = parseInt($(self).text());
 				$(self).text(oldVal + 1);
 			} else if ($(self).hasClass('unlike')) {
 				$(self).removeClass('unlike');
 				$(self).addClass('like');
+
+				var href = $(self).attr('href');
+				$(self).attr('href', href.replace('unlike', 'like'));
+
 				var oldVal = parseInt($(self).text());
 				$(self).text(oldVal - 1);
 			}
