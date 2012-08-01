@@ -202,6 +202,7 @@ h5 {
 }
 
 .options {
+	padding-top: 10px;
 	border-top: 1px solid #ddd;
 	text-align: center;
 }
